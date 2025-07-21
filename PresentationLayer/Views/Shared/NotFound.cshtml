@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "404 - Not Found";
+}
+
+@Html.Raw(@"
+<style>
+    body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .notfound-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        padding: 20px;
+        animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .notfound-title {
+        font-size: 8rem;
+        font-weight: 800;
+        color: #e74c3c;
+    }
+
+    .notfound-subtitle {
+        font-size: 2rem;
+        margin-top: 10px;
+    }
+
+    .notfound-text {
+        margin-top: 15px;
+        font-size: 1.1rem;
+        color: #bbbbbb;
+    }
+
+    .notfound-btn {
+        margin-top: 30px;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        background: #3498db;
+        color: white;
+        border: none;
+        transition: 0.3s ease;
+        text-decoration: none;
+    }
+
+    .notfound-btn:hover {
+        background: #2980b9;
+        color: #fff;
+    }
+
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+</style>
+")
+
+<div class="notfound-container">
+    <div class="notfound-title">404</div>
+    <div class="notfound-subtitle">Oops! Page not found</div>
+    <div class="notfound-text">
+        The page you are looking for might have been removed, renamed, or temporarily unavailable.
+    </div>
+    <a href="~/" class="notfound-btn">Go Back Home</a>
+</div>
