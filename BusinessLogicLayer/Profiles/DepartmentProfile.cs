@@ -13,6 +13,7 @@ namespace BusinessLogicLayer.Profiles
     {
         public DepartmentProfile()
         {
+            // the same naming and data type
             CreateMap<CreateDepartmentDto,Department>();
             CreateMap<UpdateDepartmentDto,Department>();
             CreateMap<Department,DetailsDepartmentDto>();
