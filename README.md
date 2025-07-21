@@ -1,6 +1,7 @@
 Employee Management System – ASP.NET Core MVC (N-Tier Architecture)
 This is a simple Employee and Department Management System built with ASP.NET Core MVC.
 The project is part of my personal learning journey in enterprise-level software architecture using .NET technologies.
+
 🎯 Learning Goals
 •	✅ N-Tier Architecture (Presentation, Business Logic, Data Access, Domain)
 •	✅ Generic Repository Pattern
@@ -9,6 +10,7 @@ The project is part of my personal learning journey in enterprise-level software
 •	✅ Entity Framework Core with LINQ and Migrations
 •	✅ Dependency Injection
 •	✅ Clean Code and separation of concerns
+
 🛠️ Technologies Used
 •	- ASP.NET Core MVC (.NET 8)
 •	- Entity Framework Core
@@ -43,11 +45,12 @@ More features will be added such as:
 - Logging and Exception Handling
 - Unit Testing
 - UI Enhancements
+- 
 🙋‍♂️ Author
-
 Ahmed Saleh
 GitHub: https://github.com/ahmedsaleh374
 LinkedIn: www.linkedin.com/in/ahmedsaleh8090
 Email: ahmedsaleh50047@gmail.com
+
 ⭐ Support
 If you find this project helpful, feel free to star ⭐ the repo or follow me for more updates!
