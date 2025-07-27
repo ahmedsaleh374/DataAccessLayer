@@ -2,8 +2,10 @@ using BusinessLogicLayer.Profiles;
 using BusinessLogicLayer.Services.Classes;
 using BusinessLogicLayer.Services.Interfaces;
 using DataAccessLayer.Data.Context;
+using DataAccessLayer.Models.IdentityModels;
 using DataAccessLayer.Repository.Classes;
 using DataAccessLayer.Repository.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -25,6 +27,19 @@ namespace PresentationLayer
                 options.UseLazyLoadingProxies();
             });
 
+            //register identity dbcontext
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            #region option for identity 
+                //    (options => 
+                //{
+                //    options.Password.RequireLowercase=true;
+                //    options.Password.RequireUppercase=true;
+                //    options.User.RequireUniqueEmail=true;
+                //}) 
+            #endregion
+                .AddEntityFrameworkStores<ApplicationDbContext>() 
+                .AddDefaultTokenProviders();
+
             //register repo
             //builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             //builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
@@ -35,6 +50,7 @@ namespace PresentationLayer
             //register service
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
             //register auto mapper
             builder.Services.AddAutoMapper(x => x.AddProfile(new EmployeeProfile()));
             builder.Services.AddAutoMapper(x => x.AddProfile(new DepartmentProfile()));
@@ -51,14 +67,21 @@ namespace PresentationLayer
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
+
             app.UseRouting();
-            app.UseStatusCodePagesWithReExecute("/Home/NotFound");
+
+            app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseStatusCodePagesWithReExecute("/Home/NotFound");
+            
 
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Account}/{action=Register}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

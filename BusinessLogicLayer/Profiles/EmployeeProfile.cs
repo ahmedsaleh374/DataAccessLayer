@@ -17,7 +17,8 @@ namespace BusinessLogicLayer.Profiles
         {
             // create
             CreateMap<CreateEmployeeDto, Employee>()
-                .ForMember(dest => dest.HireDate, opt => opt.MapFrom(src => src.HireDate.ToDateTime(TimeOnly.MinValue)));
+                .ForMember(dest => dest.HireDate, opt => opt.MapFrom(src => src.HireDate.ToDateTime(TimeOnly.MinValue)))
+                .ForMember(d => d.Image, opt => opt.Ignore());
 
             //get all
             CreateMap<Employee, EmployeeDto>()
@@ -32,14 +33,16 @@ namespace BusinessLogicLayer.Profiles
                 .ForMember(dest => dest.HireDate, opt => opt.MapFrom(src => DateOnly.FromDateTime(src.HireDate)));
             // update 
             CreateMap<UpdateEmployeeDto, Employee>()
-                .ForMember(d => d.HireDate, o => o.MapFrom(s => s.HireDate.ToDateTime(TimeOnly.MinValue)));
+                .ForMember(d => d.HireDate, o => o.MapFrom(s => s.HireDate.ToDateTime(TimeOnly.MinValue)))
+                .ForMember(d => d.Image, opt => opt.Ignore());
 
             /// <summary>
             /// do this for ignore manual mapping because the get by id return detail employee  , we want update employee
             /// </summary>
             CreateMap<DetailsEmployeeDto, UpdateEmployeeDto>()
                 .ForMember(d =>d.EmployeeType, o =>o.MapFrom(s =>s.EmployeeType))
-                .ForMember(d =>d.Gender, o =>o.MapFrom(s =>s.Gender));
+                .ForMember(d =>d.Gender, o =>o.MapFrom(s =>s.Gender))
+                .ForMember(d => d.Image, opt => opt.Ignore());
 
         }
 

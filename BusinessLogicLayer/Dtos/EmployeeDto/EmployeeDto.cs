@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,5 +31,7 @@ namespace BusinessLogicLayer.Dtos.EmployeeDto
         public string EmpType { get; set; }
 
         public string? Department { get; set; }
+
+        public string? Image { get; set; }
     }
 }

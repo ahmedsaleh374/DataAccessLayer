@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Models.EmployeeModels.Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,5 @@ namespace BusinessLogicLayer.Dtos.EmployeeDto
         public int? DepartmentId { get; set; }
 
         public string? Image { get; set; }
-
     }
 }
