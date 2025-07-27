@@ -34,6 +34,7 @@
 				<th>@Html.DisplayNameFor(e => e.Salary)</th>
 				<th>@Html.DisplayNameFor(e => e.IsActive)</th>
 				<th>@Html.DisplayNameFor(e => e.EmpGender)</th>
+				<th>@Html.DisplayNameFor(e => e.Image)</th>
 				<th>Details</th>
 				<th>Update</th>
 				<th>Delete</th>
@@ -66,6 +67,18 @@
 					</td>
 
 					<td>@item.EmpGender</td>
+					<td>
+						@if (!string.IsNullOrEmpty(item.Image))
+						{
+							<div>
+								<img class="img-fluid rounded-circle" src="~/files/images/@item.Image" alt="Attachment" />
+							</div>
+						}
+						else
+						{
+							<p>No Image Available</p>
+						}
+					</td>
 					<partial name="_ButtonsPartialView" model="@item.Id"></partial>
 					<td>
 						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@item.Id">

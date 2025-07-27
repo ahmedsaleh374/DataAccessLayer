@@ -18,12 +18,14 @@ namespace BusinessLogicLayer.Services.Classes
         //private readonly IEmployeeRepository _employeeRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IAttachmentService _attachmentService;
 
-        public EmployeeService(IUnitOfWork unitOfWork, IMapper mapper)
+        public EmployeeService(IUnitOfWork unitOfWork, IMapper mapper, IAttachmentService attachmentService)
         {
             //_employeeRepository = employeeRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _attachmentService = attachmentService;
         }
 
         public int Create(CreateEmployeeDto input)
@@ -32,6 +34,9 @@ namespace BusinessLogicLayer.Services.Classes
 
             //_unitOfWork.EmployeeRepository.Create(employee);
             _unitOfWork.EmployeeRepository.Create(employee);
+            if (input.Image is not null)
+                employee.Image = _attachmentService.Upload(input.Image, "images");
+
             return _unitOfWork.SaveChanges();
         }
 
@@ -56,9 +61,9 @@ namespace BusinessLogicLayer.Services.Classes
                 //employees = _unitOfWork.EmployeeRepository.GetAll();
                 employees = _unitOfWork.EmployeeRepository.GetAll();
             else
-                employees = _unitOfWork.EmployeeRepository.GetAll(x => x.Name.ToLower().Trim().Contains((SearchValue.ToLower().Trim())) 
+                employees = _unitOfWork.EmployeeRepository.GetAll(x => x.Name.ToLower().Trim().Contains((SearchValue.ToLower().Trim()))
                 || x.Address.ToLower().Trim().Contains((SearchValue.ToLower().Trim()))
-                || x.Email.ToLower().Trim().Contains((SearchValue.ToLower().Trim())) );
+                || x.Email.ToLower().Trim().Contains((SearchValue.ToLower().Trim())));
 
             return _mapper.Map<IEnumerable<EmployeeDto>>(employees);
         }
@@ -75,9 +80,35 @@ namespace BusinessLogicLayer.Services.Classes
             //var employee = _employeeRepository.GetById(input.Id);
             //if (employee == null)
             //    return 0;
-            var empDto = _mapper.Map<Employee>(input);
-            _unitOfWork.EmployeeRepository.Update(empDto);
+            var employee = _mapper.Map<Employee>(input);
+            if (input.Image is not null && input.Image.Length > 0)
+            {
+                var uploadedImage = _attachmentService.Upload(input.Image, "images");
+                if (uploadedImage is not null)
+                    employee.Image = uploadedImage;
+                else
+                      employee.Image = input.OldImage;
+
+            }
+            //employee.Image = _attachmentService.Upload(input.Image, "images");
+            _unitOfWork.EmployeeRepository.Update(employee);
             return _unitOfWork.SaveChanges();
+
+            #region GPT SOLUTIONS 
+                //if (input.Image is not null)
+                //{
+                //    var uploadedImage = _attachmentService.Upload(input.Image, "images");
+                //    if (uploadedImage is not null)
+                //        employee.Image = uploadedImage;
+                //    else
+                //
+                //      employee.Image = input.OldImage;
+                //
+                //}
+
+            //_unitOfWork.EmployeeRepository.Update(employee);
+            //return _unitOfWork.SaveChanges(); 
+            #endregion
         }
     }
 }

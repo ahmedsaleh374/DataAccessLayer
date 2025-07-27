@@ -14,13 +14,15 @@ namespace PresentationLayer.Controllers
         private readonly IWebHostEnvironment _environment;
         private readonly ILogger<EmployeeController> _logger;
         private readonly IMapper _mapper;
+        private readonly IAttachmentService _attachmentService;
 
-        public EmployeeController(IEmployeeService employeeService, IWebHostEnvironment environment, ILogger<EmployeeController> logger, IMapper mapper)
+        public EmployeeController(IEmployeeService employeeService, IWebHostEnvironment environment, ILogger<EmployeeController> logger, IMapper mapper,IAttachmentService attachmentService)
         {
             _employeeService = employeeService;
             _environment = environment;
             _logger = logger;
             _mapper = mapper;
+            _attachmentService = attachmentService;
         }
         [HttpGet]
         public IActionResult Index(string? EmployeeSearchName)
@@ -97,6 +99,8 @@ namespace PresentationLayer.Controllers
             #endregion
 
             var empDto =_mapper.Map<UpdateEmployeeDto>(employee);
+            empDto.OldImage = employee.Image;
+
             return employee is not null ? View("Edit", empDto) : NotFound();
         }
 

@@ -6,7 +6,8 @@
 <div class="row justify-content-center align-content-center mt-3">
 	<h1 class="col-8 my-4">Edit Employee</h1>
 
-	<form method="post" asp-controller="Employee" asp-action="Edit" class="col-8">
+
+	<form method="post" asp-controller="Employee" asp-action="Edit" class="col-8" enctype="multipart/form-data">
 
 		<div asp-validation-summary="All" class="text-bg-danger"></div>
 
@@ -29,14 +30,28 @@
 		</div>
 
 		<div class="form-group mb-3 col-6">
+			<label class="form-label" asp-for="Image"></label>
+			<input class="form-control" asp-for="Image" />
+			<span asp-validation-for="Image" class="text-danger"></span>
+			@if (Model.Image != null)
+			{
+				<div class="mb-3">
+					<label>Current Image:</label><br />
+					<img src="~/files/images/@Model.Image" alt="Current Image" style="max-width: 50px; max-height: 50px;" />
+				</div>
+			}
+		</div>
+
+		<div class="form-group mb-3 col-6">
 			<label class="form-label" asp-for="Age"></label>
-			<textarea class="form-control" asp-for="Age"></textarea>
+			<input class="form-control" asp-for="Age" /> 
 			<span asp-validation-for="Age" class="text-danger"></span>
 		</div>
 
 		<div class="form-group mb-3 col-6">
 			<label class="form-label" asp-for="Salary"></label>
-			<textarea class="form-control" asp-for="Salary"></textarea>
+			@* <textarea class="form-control" asp-for="Salary"></textarea> *@
+			<input class="form-control" asp-for="Salary" /> 
 			<span asp-validation-for="Salary" class="text-danger"></span>
 		</div>
 

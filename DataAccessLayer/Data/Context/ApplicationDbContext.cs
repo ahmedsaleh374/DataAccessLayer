@@ -1,6 +1,8 @@
 ﻿using DataAccessLayer.Models.DepartmentModel;
 using DataAccessLayer.Models.EmployeeModels;
+using DataAccessLayer.Models.IdentityModels;
 using DataAccessLayer.Models.Shared;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Data.Context
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         //public ApplicationDbContext() { }
 
