@@ -3,11 +3,13 @@ using BusinessLogicLayer.Dtos.EmployeeDto;
 using BusinessLogicLayer.Services.Classes;
 using BusinessLogicLayer.Services.Interfaces;
 using DataAccessLayer.Models.EmployeeModels.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PresentationLayer.Controllers
 {
-    //[ValidateAntiForgeryToken]
+    [Authorize]
+    [AutoValidateAntiforgeryToken]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;

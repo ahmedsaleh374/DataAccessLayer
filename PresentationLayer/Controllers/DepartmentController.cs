@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using BusinessLogicLayer.Dtos.DepartmentDto;
 using BusinessLogicLayer.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PresentationLayer.Controllers
 {
-    [IgnoreAntiforgeryToken]
+    [Authorize]
+    [AutoValidateAntiforgeryToken]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentService _departmentService;

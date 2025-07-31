@@ -1,0 +1,34 @@
+﻿@model CreateEditRoleVM
+<h1>Update Role</h1>
+<br />
+<br />
+<div class="row">
+	<div class="col-6">
+		<form method="post" asp-action="Edit" asp-controller="Role">
+			<div class="form-group">
+				<input hidden asp-for="Id" />
+				<label asp-for="Id" class="col-form-label"></label>
+				<input asp-for="Id" class="form-control" readonly />
+			</div>
+			
+			<div class="form-group">
+				<label asp-for="Name" class="col-form-label"></label>
+				<input asp-for="Name" class="form-control"  />
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<br />
+
+			<div class="my-3">
+				<a class="btn btn-info" asp-action="AddOrRemoveUser" asp-controller="Role" asp-route-id="@Model.Id">Add or Remove User</a>
+			</div>
+
+			<br />
+			<input type="submit" value="Save" class="btn btn-primary" />
+			<a asp-action="Index" asp-controller="Role" class="btn btn-light">Back to list</a>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

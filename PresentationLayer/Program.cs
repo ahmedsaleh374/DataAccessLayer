@@ -54,8 +54,14 @@ namespace PresentationLayer
             //register auto mapper
             builder.Services.AddAutoMapper(x => x.AddProfile(new EmployeeProfile()));
             builder.Services.AddAutoMapper(x => x.AddProfile(new DepartmentProfile()));
-            
 
+            // ACCESS DENIED
+            builder.Services.ConfigureApplicationCookie(option => 
+            {
+                option.LoginPath = "/Account/Login";
+                option.LogoutPath = "/Account/LogOut";
+                option.AccessDeniedPath = "/Account/AccessDenied";
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -81,7 +87,7 @@ namespace PresentationLayer
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=Register}/{id?}")
+                pattern: "{controller=Account}/{action=Login}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

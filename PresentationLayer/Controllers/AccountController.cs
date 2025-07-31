@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Models.IdentityModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -88,7 +89,8 @@ namespace PresentationLayer.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SignOut()
+        [Authorize]
+        public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(Login));
@@ -161,6 +163,9 @@ namespace PresentationLayer.Controllers
             return View(nameof(ResetPassword), input);
         }
 
-
+        public IActionResult AccessDenied() 
+        {
+            return View();
+        }
     }
 }
